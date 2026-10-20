@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>你的分手人格图鉴</title>
+<link rel="stylesheet" href="assets/crayon.css">
+</head>
+<body data-theme="breakup">
+<main class="wrap">
+
+  <section id="s-start">
+    <header class="masthead">
+      <span class="kicker" id="kicker"></span>
+      <h1 id="title"></h1>
+      <p class="lede" id="intro"></p>
+      <div class="meta">
+        <span><b id="qTotal">14</b> <span id="qUnit">题</span></span>
+        <span>约 4 分钟</span>
+        <span>无标准答案</span>
+      </div>
+    </header>
+    <div class="card">
+      <span class="tape"></span>
+      <p class="lede" id="startNote"></p>
+      <button class="btn" id="start"><span id="startLabel"></span> ✏️</button>
+    </div>
+  </section>
+
+  <section id="s-quiz" class="hidden">
+    <div class="card">
+      <span class="tape tl"></span>
+      <div class="progress">
+        <span class="num" id="pnum"></span>
+        <span class="bar"><i class="fill" id="pfill" style="width:7%"></i></span>
+      </div>
+      <span class="qtag" id="qtag"></span>
+      <div class="q" id="qtext"></div>
+      <div class="opts" id="opts"></div>
+      <div class="nav">
+        <button class="btn prev" id="prevBtn">← 上一题</button>
+        <button class="btn" id="nextBtn"><span class="lbl">下一题</span> →</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="s-result" class="hidden">
+    <div class="card">
+      <span class="tape tr"></span>
+      <div class="result-head">
+        <div class="plate" id="plate"></div>
+        <span class="rcode" id="rcode"></span>
+        <div class="rname" id="rname"></div>
+        <div class="rtag" id="rtag"></div>
+      </div>
+      <p class="portrait" id="portrait"></p>
+      <div class="detail" id="rdetail"></div>
+      <div class="match" id="rmatch"></div>
+      <div class="quote" id="rquote"></div>
+      <div class="bars">
+        <div class="bars-title">四型得分分布</div>
+        <div id="rbars"></div>
+      </div>
+      <div class="cta" id="rcta"></div>
+      <p class="disclaim" id="disclaimer"></p>
+      <button class="btn ghost" id="again">↺ 再测一次</button>
+    </div>
+  </section>
+
+  <div class="footer">图鉴系列 · 分手人格图鉴<br>趣味自测 · 不构成诊断</div>
+</main>
+
+<script>
+window.QUIZ = {
+  kicker: "情爱图鉴 · 别册｜分手",
+  title: "你的分手人格图鉴",
+  intro: "分手之后，你是<em>哪一种人</em>？<br>十四道题，照见你处理「结束」的方式。",
+  startNote: "这一册收录 <b>冰箱 · 回旋镖 · 收藏家 · 推土机</b> 四种人格。回想你<b>最近一次</b>分手时的样子，如实作答。",
+  startLabel: "翻开图鉴",
+  scoreUnit: " 分",
+  matchTitle: "分手后，你需要 / 别碰",
+  matchLabels: { good: "最需要的人", bad: "最容易互相拖住" },
+  disclaimer: "<b>说明</b> 本测试为趣味自测，仅供自我了解，不作心理诊断，也不评判你处理感情的方式对错；若分手后长期情绪低落、影响生活，建议寻求专业帮助。",
+  results: {
+    fr: { glyph:"🧊", code:"NO.20 · 冷藏型", name:"冰箱型", tag:"冷静得像没发生过",
+      portrait:"分手那天你可能比谁都平静，照常上班、回消息、开玩笑。别人以为你没事，只有你自己知道——你不是不痛，是把它冻起来了，等某个平常的下午才突然化开。",
+      detail:[
+        ["你平时会这样", ["分手后照常生活，效率甚至更高","不在人前哭，把难过留到没人的时候","很久以后因为一件小事突然崩溃","用「没什么好难过的」说服自己"]],
+        ["为什么会这样", "你不是没情绪，是把情绪按了暂停。冷冻能帮你先撑过最难的几天，但它不会让痛消失，只是把它推到以后。"],
+        ["怎么对自己更好", ["允许自己现在就痛一点，别等一年后集中补上","找一个能说话的人，把「我没事」换成「我其实不太好」"]],
+        ["要警惕", "冻得太久，容易连别的感受一起冻住——快乐也会变淡。"]
+      ],
+      match:{ best:"一个愿意等你慢慢化开的人——你不用在他面前假装没事。", worst:"一个逼你立刻表态的人——你只会冻得更紧。" },
+      quote:"你不是没事，你只是还没轮到哭。" },
+    bo: { glyph:"🪃", code:"NO.21 · 回旋型", name:"回旋镖型", tag:"删了又加，再见了又回头",
+      portrait:"你不止一次删掉 TA，也不止一次把 TA 加回来。理智时你说得清清楚楚，夜深时你又忍不住。「最后一次」你说过很多遍，但每一次都还差一点点。",
+      detail:[
+        ["你平时会这样", ["反复复合，说着分手又回头","删了又加、拉黑又解除","深夜控制不住发消息","靠「TA 会不会留我」来判断还有没有爱"]],
+        ["为什么会这样", "分手后依恋系统不会自动关闭，被激活时你只会越来越想回到那个人身边——反复复合是规律，不是你没出息。"],
+        ["怎么对自己更好", ["趁理智时写下「必须分手的原因」，想联系时先读一遍再等 30 分钟","给「立刻行动」加一道延迟——延迟不是忍，是把决定挪出警报期"]],
+        ["要警惕", "记忆会在分手时骗你：你只记得 TA 的好。那份「他其实很好」是症状，不是事实。"]
+      ],
+      match:{ best:"一个能给你明确答案的人——TA 的确定，能关掉你反复响的警报器。", worst:"一个忽冷忽热的人——你们会一起把「复合」演上一年。" },
+      quote:"你要的不是 TA，是那个不必反复确认的答案。" },
+    co: { glyph:"🗄️", code:"NO.22 · 存档型", name:"收藏家型", tag:"不删、不看、也走不出来",
+      portrait:"你没删 TA，也没勇气点开。聊天记录、合照、那条没发出去的消息，你都留着。你说你放下了，但每次 TA 更新动态，你总是第一个知道。",
+      detail:[
+        ["你平时会这样", ["保留所有聊天记录和合照","反复回看过去的对话","偷偷看 TA 的主页和点赞","幻想某天 TA 会回来"]],
+        ["为什么会这样", "分手后你的记忆在悄悄改写过去——你只记得美好的部分，忘掉了那些让你难受的事。你留着的不是 TA，是一段被修过的回忆。"],
+        ["怎么对自己更好", ["把「必须分手的原因」写成能回放的事实，想复合时拿出来读","不是删掉就没事，是看清才没事"]],
+        ["要警惕", "存档越久，越容易把幻影当成真的人，然后用它否掉眼前真实的人。"]
+      ],
+      match:{ best:"一个愿意陪你好好告别的人——你需要的是句号，不是一个删除键。", worst:"一个和你一样舍不得的人——两个人一起停在原地。" },
+      quote:"你留着的不是 TA，是一段被修过的回忆。" },
+    bu: { glyph:"🔥", code:"NO.23 · 清场型", name:"推土机型", tag:"删光、拉黑、逼自己往前",
+      portrait:"分手当晚你就删光了所有痕迹，第二天照常健身、社交、发动态。你把「难过」当成软弱，用行动把它碾过去。你跑得很快，但有些东西还在追你。",
+      detail:[
+        ["你平时会这样", ["分手后立刻删掉所有联系方式","用忙碌、健身、新关系填满时间","逼自己「翻篇」，不许回头","别人劝你慢一点，你说不用"]],
+        ["为什么会这样", "往前冲是你的防御方式。它让你看起来恢复得很快，但被压住的感受不会因为你跑得快就消失。"],
+        ["怎么对自己更好", ["允许自己停一下，承认「我还没好」","别用下一段关系，当下一个创可贴"]],
+        ["要警惕", "翻篇越快，越可能把同一种结局再演一遍——因为你没来得及看清上一种是为什么。"]
+      ],
+      match:{ best:"一个允许你慢下来的人——TA 会告诉你，不用一直往前冲。", worst:"一个也只会硬扛的人——你们都不会先开口，最后什么都不剩。" },
+      quote:"你不是不难过，你是不允许自己难过。" }
+  },
+  cta: {
+    eyebrow: "还没走出来？",
+    title: "《读懂恋人心》里，有一整章讲的就是「分手」",
+    lead: "为什么明明该走却走不掉、为什么半夜特别想发那条消息——书里都有解释，我把它做成了能直接查的拆书稿：",
+    items: [
+      "「情感反弹效应」：分手后为什么只记得 TA 的好",
+      "走不掉的机制：依恋系统什么时候才会安静下来",
+      "9 条分手锦囊 → 一张可以提前勾选的准备清单",
+      "有效沟通五原则 + 六组照抄改写的话术"
+    ],
+    foot: "想要完整精华 → <b>评论区扣「图鉴」</b>，或私信我。<br>（这一行请替换成你自己的店铺 / 联系方式）"
+  },
+  questions: [
+    { tag:"第 1 题 · 那天", text:"分手那天晚上，你的第一反应是？",
+      opts:[ {label:"照常过日子，谁都看不出来", scores:{fr:2}}, {label:"忍不住发消息、想挽回", scores:{bo:2}}, {label:"把所有聊天记录翻出来看一遍", scores:{co:2}}, {label:"立刻删光拉黑，把行程排满", scores:{bu:2}} ] },
+    { tag:"第 2 题 · 联系方式", text:"TA 的联系方式，现在是什么状态？",
+      opts:[ {label:"还在，但我不去联系", scores:{fr:1,co:1}}, {label:"删了又加回来过", scores:{bo:2}}, {label:"一直留着，舍不得删", scores:{co:2}}, {label:"分手当天就删干净了", scores:{bu:2}} ] },
+    { tag:"第 3 题 · 深夜", text:"分手后那些睡不着的夜里，你多半在？",
+      opts:[ {label:"睡得还行，白天太累了", scores:{fr:2}}, {label:"想给 TA 发一句「在吗」", scores:{bo:2}}, {label:"翻 TA 的动态，翻到很早以前", scores:{co:2}}, {label:"刷剧、健身、加班，不让自己停", scores:{bu:2}} ] },
+    { tag:"第 4 题 · 被问起", text:"朋友问起「你们怎么了」，你怎么答？",
+      opts:[ {label:"「早翻篇了」", scores:{fr:1,bu:1}}, {label:"「我们可能还有机会」", scores:{bo:2}}, {label:"「我不知道怎么开始没有 TA 的生活」", scores:{co:2}}, {label:"「别提了，忙起来就好」", scores:{bu:2}} ] },
+    { tag:"第 5 题 · 突然来信", text:"TA 突然给你发消息，你会？",
+      opts:[ {label:"平静回复，之后该干嘛干嘛", scores:{fr:2}}, {label:"心跳加速，聊到凌晨", scores:{bo:2}}, {label:"盯着屏幕，打了删、删了打", scores:{co:2}}, {label:"不回，或回一句就结束", scores:{bu:2}} ] },
+    { tag:"第 6 题 · 更怕", text:"分手后，你更怕的是？",
+      opts:[ {label:"怕自己表现得太在意", scores:{fr:1,bu:1}}, {label:"怕真的从此断了联系", scores:{bo:2}}, {label:"怕有一天会忘掉 TA", scores:{co:2}}, {label:"怕自己一停下来就崩", scores:{bu:2}} ] },
+    { tag:"第 7 题 · 三个月后", text:"分手三个月，你大概在做什么？",
+      opts:[ {label:"日子照旧，偶尔想起", scores:{fr:2}}, {label:"还在等 TA 给个态度", scores:{bo:2}}, {label:"还在复盘到底哪里出了问题", scores:{co:2}}, {label:"已经开始了新的生活", scores:{bu:2}} ] },
+    { tag:"第 8 题 · 一句话", text:"哪句话最像分手后的你？",
+      opts:[ {label:"「我没事」", scores:{fr:2}}, {label:"「我知道不该，但我控制不住」", scores:{bo:2}}, {label:"「我还没准备好放手」", scores:{co:2}}, {label:"「我没时间难过」", scores:{bu:2}} ] },
+    { tag:"第 9 题 · 新的人", text:"如果有新的人出现，你会？",
+      opts:[ {label:"可以试试，但不急", scores:{fr:2}}, {label:"还是会拿 TA 来比较", scores:{bo:1,co:1}}, {label:"心里全是前任，装不下别人", scores:{co:2}}, {label:"立刻进入下一段，填补空白", scores:{bu:2}} ] },
+    { tag:"第 10 题 · 旧照片", text:"手机里还存着你们的合照，你会？",
+      opts:[ {label:"存着就存着，也没打开过", scores:{fr:1,co:1}}, {label:"偶尔翻出来看一会儿", scores:{co:2}}, {label:"早就批量删干净了", scores:{bu:2}}, {label:"留着，想着哪天还能一起看", scores:{bo:2}} ] },
+    { tag:"第 11 题 · 朋友的劝", text:"朋友劝你「放下吧」，你的反应是？",
+      opts:[ {label:"「我知道，我早没事了」", scores:{fr:2}}, {label:"「你们不懂，我们不一样」", scores:{bo:2}}, {label:"嘴上答应，回去还是偷偷看 TA", scores:{co:2}}, {label:"「不用劝，我早翻篇了」", scores:{bu:2}} ] },
+    { tag:"第 12 题 · 偶遇", text:"在街上偶遇 TA，你会？",
+      opts:[ {label:"正常打招呼，各走各的", scores:{fr:2}}, {label:"心跳加速，找借口多聊两句", scores:{bo:2}}, {label:"假装没看见，回家翻 TA 动态", scores:{co:2}}, {label:"面无表情走过，回家狂加班", scores:{bu:2}} ] },
+    { tag:"第 13 题 · 那一刻", text:"哪个瞬间你最难受？",
+      opts:[ {label:"有人问起「你还好吗」的时候", scores:{fr:2}}, {label:"看到 TA 好像过得挺好", scores:{bo:1,co:1}}, {label:"路过你们以前常去的地方", scores:{co:2}}, {label:"深夜一个人闲下来的时候", scores:{bu:2}} ] },
+    { tag:"第 14 题 · 最难", text:"对你来说，分手后最难的是？",
+      opts:[ {label:"承认自己真的很难过", scores:{fr:2}}, {label:"弄明白到底还有没有可能", scores:{bo:2}}, {label:"把 TA 从生活里一点点拿掉", scores:{co:2}}, {label:"停下来，面对自己", scores:{bu:2}} ] }
+  ]
+};
+</script>
+<script src="assets/quiz.js"></script>
+</body>
+</html>
